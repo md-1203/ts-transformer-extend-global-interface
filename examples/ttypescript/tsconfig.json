@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+//    "strict": true,
+    "target": "ES5",
+//    "module": "CommonJS",
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "plugins": [
+      {"transform":  "../../transformer.ts", "type": "raw"}
+    ]
+  },
+  "files": [
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
