@@ -1,22 +1,22 @@
 {
   "name": "ts-transformer-extend-global-interface",
-  "version": "0.0.2",
+  "description": "A Typescript custom transformer which enables to extend globally declare interface",
+  "author": "md-1203",
+  "license": "MIT",
   "scripts": {
     "prepare": "tsc",
     "prepublishOnly": "npm test",
     "test": "node test/compile && mocha test"
   },
-  "keywords": [
-    "Typescript",
-    "Transformer",
-    "Global",
-    "Interface"
-  ],
   "files": [
     "transformer.ts",
     "transformer.js",
     "/core"
   ],
+  "homepage": "https://github.com/md-1203/ts-transformer-extend-global-interface#readme",
+  "bugs": {
+    "url": "https://github.com/md-1203/ts-transformer-extend-global-interface/issues"
+  },
   "devDependencies": {
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
@@ -25,5 +25,12 @@
   },
   "peerDependencies": {
     "typescript": ">=2.4.1"
-  }
+  },
+  "keywords": [
+    "Typescript",
+    "Transformer",
+    "Global",
+    "Interface"
+  ],
+  "version": "0.0.2"
 }

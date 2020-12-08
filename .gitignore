@@ -1,4 +1,4 @@
 node_modules/
 examples/**/node_modules
-package-lock.json
 .idea/
+package-lock.json
