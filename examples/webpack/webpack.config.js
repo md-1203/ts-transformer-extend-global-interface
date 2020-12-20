@@ -2,10 +2,13 @@ const extendGlobalInterfaceTransformer = require("../../transformer").default;
 
 module.exports = ["ts-loader", "awesome-typescript-loader"].map((loader) => ({
     mode: "development",
-    entry: "./index.ts",
+    entry: [
+        "./src/index.ts",
+        "./src/extension.ts"
+    ],
     output: {
-        path: __dirname,
-        filename: `${loader}.js`
+        path: __dirname + `/dist`,
+        filename: `${loader}.bundle.js`
     },
     resolve: {
         extensions: [".ts", ".js"]

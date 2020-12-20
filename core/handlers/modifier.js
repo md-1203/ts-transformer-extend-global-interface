@@ -22,27 +22,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compile = void 0;
 var ts = __importStar(require("typescript"));
-var transformer_1 = __importDefault(require("../../transformer"));
-function compile(filePaths, target, writeFileCallback) {
-    if (target === void 0) { target = ts.ScriptTarget.ES5; }
-    var program = ts.createProgram(filePaths, {
-        // strict: true,
-        // module: ts.ModuleKind.CommonJS,
-        noEmitOnError: true,
-        esModuleInterop: true,
-        noImplicitReturns: true,
-        moduleResolution: ts.ModuleResolutionKind.NodeJs,
-        target: target
-    });
-    var transformers = {
-        before: [transformer_1.default(program)],
-        after: []
-    };
-    var _a = program.emit(undefined, writeFileCallback, undefined, false, transformers), emitSkipped = _a.emitSkipped, diagnostics = _a.diagnostics;
-    if (emitSkipped) {
-        throw new Error(diagnostics.map(function (diagnostic) { return diagnostic.messageText; }).join("\n"));
+var store_1 = __importDefault(require("../store"));
+function handleModifier(modifier) {
+    if (modifier.kind == ts.SyntaxKind.ExportKeyword) {
+        var currentSourceFile = store_1.default.instance.getCurrentSourceFile();
+        if (currentSourceFile && currentSourceFile.isExportDeclarationClauseEmpty && !currentSourceFile.exportedIdentifierText) {
+            var parentNodeText = modifier.parent.getText();
+            var regExp = new RegExp(/export\s*(default\s)*[a-z]+\s*[\w_$]+/gm);
+            var matchedArray = parentNodeText.match(regExp);
+            if (matchedArray) {
+                var firstMatchedElement = matchedArray[0];
+                var splittedArray = firstMatchedElement.split(" ");
+                currentSourceFile.exportedIdentifierText = splittedArray[splittedArray.length - 1];
+                currentSourceFile.isExportModifierFound = true;
+            }
+        }
     }
 }
-exports.compile = compile;
+exports.default = handleModifier;

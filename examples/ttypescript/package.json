@@ -5,6 +5,6 @@
   "devDependencies": {
     "ts-node": "^9.1.0",
     "ttypescript": "^1.5.12",
-    "ts-transformer-extend-global-interface": "^0.0.1"
+    "ts-transformer-extend-global-interface": "^0.0.2"
   }
 }

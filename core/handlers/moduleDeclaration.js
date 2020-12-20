@@ -18,31 +18,38 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts = __importStar(require("typescript"));
-var constants_1 = require("./constants");
-var store_1 = require("./store");
+var store_1 = __importDefault(require("../store"));
 function handleModuleDeclaration(moduleDeclaration) {
-    if (isGlobalModule(moduleDeclaration.name) && typeof moduleDeclaration.body != "undefined" && ts.isModuleBlock(moduleDeclaration.body)) {
+    if (isGlobalModuleDeclaration(moduleDeclaration)) {
+        handleGlobalModuleDeclaration(moduleDeclaration);
+    }
+}
+function isGlobalModuleDeclaration(moduleDeclaration) {
+    var moduleName = moduleDeclaration.name;
+    return ts.isIdentifier(moduleName) && moduleName.originalKeywordKind == ts.SyntaxKind.GlobalKeyword;
+}
+function handleGlobalModuleDeclaration(moduleDeclaration) {
+    if (moduleDeclaration.body && ts.isModuleBlock(moduleDeclaration.body)) {
         var moduleBlock = moduleDeclaration.body;
         moduleBlock.statements.forEach(handleModuleBlockStatement);
     }
-    return moduleDeclaration;
-}
-function isGlobalModule(moduleName) {
-    return (ts.isIdentifier(moduleName) && moduleName.getText() == constants_1.GlobalString);
 }
 function handleModuleBlockStatement(statement) {
     if (ts.isInterfaceDeclaration(statement)) {
-        var interfaceDeclaration = statement; // ts.InterfaceDeclaration
-        var extendedInterfaceProperties_1 = new store_1.ExtendedInterfaceProperties();
-        interfaceDeclaration.members.forEach(function (member) { return handleInterfaceDeclarationMember(member, extendedInterfaceProperties_1); });
-        store_1.Store.instance.addInterface(interfaceDeclaration.name.getText(), extendedInterfaceProperties_1);
+        handleInterfaceDeclaration(statement);
     }
 }
-function handleInterfaceDeclarationMember(member, extendedInterfaceProperties) {
-    if (ts.isPropertySignature(member)) {
-        extendedInterfaceProperties.addProperty(member.name.getText());
+function handleInterfaceDeclaration(interfaceDeclaration) {
+    if (interfaceDeclaration.members.length) {
+        var currentSourceFile = store_1.default.instance.getCurrentSourceFile();
+        if (currentSourceFile) {
+            currentSourceFile.isGlobalInterfaceExtended = true;
+        }
     }
 }
 exports.default = handleModuleDeclaration;

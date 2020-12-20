@@ -23,8 +23,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts = __importStar(require("typescript"));
-var moduleDeclaration_1 = __importDefault(require("./core/moduleDeclaration"));
-var expressionStatement_1 = __importDefault(require("./core/expressionStatement"));
+var modifier_1 = __importDefault(require("./core/handlers/modifier"));
+var importDeclaration_1 = __importDefault(require("./core/handlers/importDeclaration"));
+var moduleDeclaration_1 = __importDefault(require("./core/handlers/moduleDeclaration"));
+var exportDeclaration_1 = __importDefault(require("./core/handlers/exportDeclaration"));
+var exportAssignment_1 = __importDefault(require("./core/handlers/exportAssignment"));
+var sourceFile_1 = require("./core/handlers/sourceFile");
 function transformer(program) {
     return function (context) { return function (file) { return visitNodeAndChildren(file, context); }; };
 }
@@ -33,10 +37,20 @@ function visitNodeAndChildren(node, context) {
     return ts.visitEachChild(visitNode(node), function (childNode) { return visitNodeAndChildren(childNode, context); }, context);
 }
 function visitNode(node) {
-    if (ts.isModuleDeclaration(node))
-        return moduleDeclaration_1.default(node);
-    else if (ts.isExpressionStatement(node))
-        return expressionStatement_1.default(node);
+    if (ts.isSourceFile(node))
+        sourceFile_1.handleSourceFile(node);
+    else if (ts.isModuleDeclaration(node))
+        moduleDeclaration_1.default(node);
+    else if (ts.isModifier(node))
+        modifier_1.default(node);
+    else if (ts.isExportDeclaration(node))
+        exportDeclaration_1.default(node);
+    else if (ts.isExportAssignment(node))
+        exportAssignment_1.default(node);
+    if (ts.isImportDeclaration(node))
+        return importDeclaration_1.default(node);
+    else if (sourceFile_1.isSourceFileLastStatement(node))
+        return sourceFile_1.handleSourceFileLastStatement(node);
     else
         return node;
 }
