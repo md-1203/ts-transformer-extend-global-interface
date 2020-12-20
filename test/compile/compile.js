@@ -28,8 +28,6 @@ var transformer_1 = __importDefault(require("../../transformer"));
 function compile(filePaths, target, writeFileCallback) {
     if (target === void 0) { target = ts.ScriptTarget.ES5; }
     var program = ts.createProgram(filePaths, {
-        // strict: true,
-        // module: ts.ModuleKind.CommonJS,
         noEmitOnError: true,
         esModuleInterop: true,
         noImplicitReturns: true,

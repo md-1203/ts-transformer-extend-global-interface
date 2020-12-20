@@ -138,28 +138,6 @@ module.exports = {
 
 ```
 
-## Rollup (with rollup-plugin-typescript2)
-
-See [examples/rollup](examples/rollup) for detail.
-
-```js
-// rollup.config.js
-import resolve from 'rollup-plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript2';
-import extendGlobalInterfaceTransformer from 'ts-transformer-extend-global-interface/transformer';
-
-export default {
-  // ...
-  plugins: [
-    resolve(),
-    typescript({ transformers: [service => ({
-      before: [ extendGlobalInterfaceTransformer(service.getProgram()) ],
-      after: []
-    })] })
-  ]
-};
-```
-
 ## ttypescript
 
 See [examples/ttypescript](examples/ttypescript) for detail.
@@ -178,50 +156,25 @@ See [ttypescript's README](https://github.com/cevek/ttypescript/blob/master/READ
 }
 ```
 
-## ts-jest
-
-See [examples/ts-jest](examples/ts-jest) for details.
-In order to use this transformer with ts-jest, you need to add a wrapper around it like this:
-
-```javascript
-// ts-jest-extend-global-interface-transformer.js
-const extendGlobalInterfaceTransformer = require('ts-transformer-extend-global-interface/transformer').default;
-const name = 'my-key-transformer';
-const version = 1;
-const factory = (cs) => (ctx) => extendGlobalInterfaceTransformer(cs.tsCompiler.program)(ctx);
-module.exports = { name, version, factory };
-```
-
-And add it in `jest.config.js` like this:
-
-```javascript
-  globals: {
-    'ts-jest': {
-      // relative path to the ts-jest-extend-global-interface-transformer.js file
-      astTransformers: { before: ['src/react/ts-jest-extend-global-interface-transformer.js'] },
-    },
-  },
-```
-
-Note: ts-jest 26.4.2 does not work with this transformer (fixed in ts-jest 26.4.3). Also, for versions smaller than 26.2, you need to provide the transformer in an array instead, like this: `astTransformers: { before: ['src/react/ts-jest-extend-global-interface-transformer.js'] }`
-
 ## TypeScript API
 
-See [test](test) for detail.
+See [test](test/compile/compile.ts) for detail.
 You can try it with `$ npm test`.
 
 ```js
 const ts = require('typescript');
-const extendGlobalInterfaceTransformer = require('ts-transformer-keys/transformer').default;
+const transformer = require('ts-transformer-keys/transformer').default;
 
 const program = ts.createProgram([/* your files to compile */], {
-  strict: true,
+  target: ts.ScriptTarget.ES5,
   noEmitOnError: true,
-  target: ts.ScriptTarget.ES5
+  esModuleInterop: true,
+  noImplicitReturns: true,
+  moduleResolution: ts.ModuleResolutionKind.NodeJs,
 });
 
 const transformers = {
-  before: [extendGlobalInterface(program)],
+  before: [transformer(program)],
   after: []
 };
 const { emitSkipped, diagnostics } = program.emit(undefined, undefined, undefined, false, transformers);
@@ -231,18 +184,7 @@ if (emitSkipped) {
 }
 ```
 
-As a result, the TypeScript code shown [here](#how-to-use-keys) is compiled into the following JavaScript.
-
-```js
-"use strict";
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-Object.defineProperty(Math, "add", {
-    value: function (num1, num2) {
-        return num1 + num2;
-    }
-});
-```
+As a result, the TypeScript code shown [here](test/fileTransformation/ES5) is compiled into the following JavaScript.
 
 # License
 

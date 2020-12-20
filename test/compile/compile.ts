@@ -3,8 +3,6 @@ import transformer from "../../transformer";
 
 export function compile(filePaths: string[], target = ts.ScriptTarget.ES5, writeFileCallback?: ts.WriteFileCallback) {
     const program = ts.createProgram(filePaths, {
-        // strict: true,
-        // module: ts.ModuleKind.CommonJS,
         noEmitOnError: true,
         esModuleInterop: true,
         noImplicitReturns: true,
