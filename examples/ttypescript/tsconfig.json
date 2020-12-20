@@ -4,10 +4,10 @@
     "module": "CommonJS",
     "noEmitOnError": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "outDir": "transformed",
     "plugins": [
-      {"transform":  "ts-transformer-extend-global-interface/transformer.ts"}
+      {"transform":  "ts-transformer-extend-global-interface/transformer"}
     ]
   },
   "files": [

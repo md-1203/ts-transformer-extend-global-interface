@@ -1,4 +1,4 @@
-const extendGlobalInterfaceTransformer = require("../../transformer").default;
+const transformer = require("ts-transformer-extend-global-interface/transformer").default;
 
 module.exports = ["ts-loader", "awesome-typescript-loader"].map((loader) => ({
     mode: "development",
@@ -23,7 +23,7 @@ module.exports = ["ts-loader", "awesome-typescript-loader"].map((loader) => ({
                     options: {
                         getCustomTransformers: program => ({
                             before: [
-                                extendGlobalInterfaceTransformer(program)
+                                transformer(program)
                             ]
                         })
                     }

@@ -13,6 +13,10 @@
     "transformer.js",
     "/core"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/md-1203/ts-transformer-extend-global-interface.git"
+  },
   "homepage": "https://github.com/md-1203/ts-transformer-extend-global-interface#readme",
   "bugs": {
     "url": "https://github.com/md-1203/ts-transformer-extend-global-interface/issues"
@@ -32,5 +36,5 @@
     "Global",
     "Interface"
   ],
-  "version": "0.0.2"
+  "version": "1.0.0"
 }

@@ -189,6 +189,3 @@ As a result, the TypeScript code shown [here](test/fileTransformation/ES5) is co
 # License
 
 MIT
-
-[npm-image]:https://img.shields.io/npm/v/ts-transformer-keys.svg?style=flat
-[npm-url]:https://npmjs.org/package/ts-transformer-keys

@@ -4,7 +4,8 @@
   },
   "devDependencies": {
     "ts-node": "^9.1.0",
+    "ts-transformer-extend-global-interface": "0.0.4",
     "ttypescript": "^1.5.12",
-    "ts-transformer-extend-global-interface": "^0.0.2"
+    "typescript": "^4.1.2"
   }
 }
