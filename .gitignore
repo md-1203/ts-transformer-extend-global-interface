@@ -1,6 +1,7 @@
-node_modules/
-examples/**/node_modules
-.idea/
+*.js
+!test/fileTransformation/*.js
+!test/compile/index.js
+.npmignore
 package-lock.json
-*/**.js
-!code/
+node_modules/
+
