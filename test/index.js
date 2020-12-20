@@ -44,21 +44,20 @@ var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var typescript_1 = __importDefault(require("typescript"));
 var compile_1 = require("./compile/compile");
-describe("global-interface", function () {
+describe("extend-global-interface", function () {
+    var targetFile = "index.ts";
     var fileTransformationDir = path_1.default.join(__dirname, "fileTransformation");
-    fs_1.default.readdirSync(fileTransformationDir).filter(function (file) { return path_1.default.extname(file) === ".ts"; }).forEach(function (file) {
-        return ["ES5", "ESNext"].forEach(function (target) {
-            return it("should transform " + file + " as expected when target is " + target, function (done) { return __awaiter(void 0, void 0, void 0, function () {
-                var result, fullFileName, postCompileFullFileName;
-                return __generator(this, function (_a) {
-                    result = "";
-                    fullFileName = path_1.default.join(fileTransformationDir, file), postCompileFullFileName = fullFileName.replace(/\.ts$/, '.js');
-                    compile_1.compile([fullFileName], typescript_1.default.ScriptTarget[target], function (fileName, data) { return postCompileFullFileName === path_1.default.join(fileName) && (result = data); });
-                    assert_1.default.strictEqual(result.replace(/\r\n/g, '\n'), fs_1.default.readFileSync(fullFileName.replace(/\.ts$/, "." + target + ".js"), 'utf-8'));
-                    done();
-                    return [2 /*return*/];
-                });
-            }); });
-        });
+    ["ES5", "ESNext"].forEach(function (target) {
+        return it("should transform " + targetFile + " as expected when target is " + target, function (done) { return __awaiter(void 0, void 0, void 0, function () {
+            var result, fullFileName, postCompileFullFileName;
+            return __generator(this, function (_a) {
+                result = "";
+                fullFileName = path_1.default.join(fileTransformationDir, "/Typescript/" + targetFile), postCompileFullFileName = fullFileName.replace(/\.ts$/, '.js');
+                compile_1.compile([fullFileName], typescript_1.default.ScriptTarget[target], function (fileName, data) { return postCompileFullFileName === path_1.default.join(fileName) && (result = data); });
+                assert_1.default.strictEqual(result.replace(/\r\n/g, '\n'), fs_1.default.readFileSync(path_1.default.join(fileTransformationDir, target + "/" + targetFile.replace(/\.ts$/, ".js")), 'utf-8'));
+                done();
+                return [2 /*return*/];
+            });
+        }); });
     });
 });

@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ES5",
     "module": "CommonJS",
-//    "strict": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
@@ -10,7 +9,8 @@
   },
   "include": [
     "transformer.ts",
-    "test/compile/compile.ts"
+    "test/compile/compile.ts",
+    "test/index.ts"
   ],
   "exclude": [
     "node_modules"

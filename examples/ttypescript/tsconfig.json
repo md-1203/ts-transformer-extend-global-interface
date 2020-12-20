@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-//    "strict": true,
     "target": "ES5",
-//    "module": "CommonJS",
+    "module": "CommonJS",
     "noEmitOnError": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "outDir": "transformed",
     "plugins": [
-      {"transform":  "../../transformer.ts", "type": "raw"}
+      {"transform":  "ts-transformer-extend-global-interface/transformer.ts"}
     ]
   },
   "files": [
-    "index.ts"
+    "source/index.ts"
   ],
   "exclude": [
     "node_modules"

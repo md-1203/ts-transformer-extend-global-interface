@@ -10,13 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./index.ts":
-/*!******************!*
-  !*** ./index.ts ***!
-  \******************/
+/***/ "./src/extension.ts":
+/*!**************************!*\
+  !*** ./src/extension.ts ***!
+  \**************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nObject.defineProperty(Math, \"add\", {\n    value: function (num1, num2) {\n        return num1 + num2;\n    }\n});\n\n\n//# sourceURL=webpack:///./index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.extendGlobalInterfaceSignature = void 0;\nMath.add = function (num1, num2) {\n    return num1 + num2;\n};\nexports.extendGlobalInterfaceSignature = 0;\n\n\n//# sourceURL=webpack:///./src/extension.ts?");
+
+/***/ }),
+
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar extension_1 = __webpack_require__(/*! ./extension */ \"./src/extension.ts\");\nvar num1 = 24;\nvar num2 = 36;\nconsole.log('sum of two number is:', Math.add(num1, num2));\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
@@ -48,7 +58,8 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nObje
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
-/******/ 	__webpack_require__("./index.ts");
+/******/ 	__webpack_require__("./src/index.ts");
 /******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ 	__webpack_require__("./src/extension.ts");
 /******/ })()
 ;
