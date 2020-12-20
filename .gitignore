@@ -4,4 +4,10 @@
 .npmignore
 package-lock.json
 node_modules/
+.idea/.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/ts-transformer-extend-global-interface.iml
+*.DS_Stor
+
 

@@ -24,9 +24,9 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar extension_1 = __webpack_require__(/*! ./extension */ \"./src/extension.ts\");\nvar num1 = 24;\nvar num2 = 36;\nconsole.log('sum of two number is:', Math.add(num1, num2));\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar num1 = 24;\nvar num2 = 36;\nconsole.log('sum of two number is:', Math.add(num1, num2));\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
