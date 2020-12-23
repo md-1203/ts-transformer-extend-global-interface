@@ -8,6 +8,7 @@ node_modules/
 .idea/misc.xml
 .idea/modules.xml
 .idea/ts-transformer-extend-global-interface.iml
-*.DS_Stor
+.idea/vcs.xml
+*.DS_Store
 
 

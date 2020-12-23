@@ -11,8 +11,12 @@ export default function handleModifier(modifier: ts.Modifier) {
             if (matchedArray) {
                 const firstMatchedElement = matchedArray[0];
                 const splittedArray = firstMatchedElement.split(" ");
-                currentSourceFile.exportedIdentifierText = splittedArray[splittedArray.length - 1];
-                currentSourceFile.isExportModifierFound = true;
+                if (splittedArray[1] == "default") {
+                    currentSourceFile.isDefaultExportFound = true
+                } else {
+                    currentSourceFile.exportedIdentifierText = splittedArray[splittedArray.length - 1];
+                    currentSourceFile.isExportModifierFound = true;
+                }
             }
         }
     }

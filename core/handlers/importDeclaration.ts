@@ -27,8 +27,7 @@ export default function handleImportDeclaration(importDeclaration: ts.ImportDecl
             }
         }
     }
-
-    return importDeclaration
+    return importDeclaration;
 }
 
 function getNamedImports(namedImportBindings: ts.NamedImportBindings, elements: ts.ImportSpecifier[]): ts.NamedImports {

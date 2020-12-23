@@ -32,9 +32,9 @@ export function handleSourceFileLastStatement(lastStatement: ts.Node): ts.Node |
     checkLastStatement(lastStatement);
     const currentSourceFile = Store.instance.getCurrentSourceFile();
     if (currentSourceFile) {
-        if ((!currentSourceFile.isGlobalInterfaceExtended) || (currentSourceFile.isGlobalInterfaceExtended && currentSourceFile.isExportAssignmentFound)) {
+        if ((!currentSourceFile.isGlobalInterfaceExtended) || (currentSourceFile.isGlobalInterfaceExtended && currentSourceFile.isDefaultExportFound)) {
             Store.instance.resetCurrentSourceFile();
-        } else if (currentSourceFile.isGlobalInterfaceExtended && (currentSourceFile.isExportDeclarationClauseEmpty == undefined || currentSourceFile.isExportDeclarationClauseEmpty) && !currentSourceFile.isExportModifierFound && !currentSourceFile.isExportAssignmentFound) {
+        } else if (currentSourceFile.isGlobalInterfaceExtended && (currentSourceFile.isExportDeclarationClauseEmpty == undefined || currentSourceFile.isExportDeclarationClauseEmpty) && !currentSourceFile.isExportModifierFound && !currentSourceFile.isDefaultExportFound) {
             const signatureStatement = createSignatureStatement();
             currentSourceFile.exportedIdentifierText = variableIdentifierText;
             currentSourceFile.lastStatementId = '';

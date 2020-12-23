@@ -2,7 +2,7 @@ export default class SourceFile {
     private _fileName: string;
     private _isExportDeclarationClauseEmpty: boolean;
     private _isExportModifierFound: boolean;
-    private _isExportAssignmentFound: boolean;
+    private _isDefaultExportFound: boolean;
     private _exportedIdentifierText: string;
     private _isGlobalInterfaceExtended: boolean;
     private _lastStatementId: string;
@@ -38,13 +38,13 @@ export default class SourceFile {
         }
     }
 
-    get isExportAssignmentFound(): boolean {
-        return this._isExportAssignmentFound;
+    get isDefaultExportFound(): boolean {
+        return this._isDefaultExportFound;
     }
 
-    set isExportAssignmentFound(value: boolean) {
+    set isDefaultExportFound(value: boolean) {
         if (typeof value != 'undefined') {
-            this._isExportAssignmentFound = value;
+            this._isDefaultExportFound = value;
         }
     }
 
@@ -78,25 +78,3 @@ export default class SourceFile {
         }
     }
 }
-
-// isExportKeywordFound: boolean,
-// isExportDeclarationEmpty: boolean,
-// get isExportDeclarationEmpty(): boolean {
-//     return this.isExportDeclarationEmpty;
-// }
-//
-// set isExportDeclarationEmpty(value: boolean) {
-//     if (typeof value == 'undefined') {
-//         this.isExportDeclarationEmpty = value;
-//     }
-// }
-//
-// get isExportKeywordFound(): boolean {
-//     return this.isExportKeywordFound;
-// }
-//
-// set isExportKeywordFound(value: boolean) {
-//     if (typeof value == 'undefined') {
-//         this.isExportKeywordFound = value;
-//     }
-// }

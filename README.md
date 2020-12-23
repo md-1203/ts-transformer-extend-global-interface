@@ -1,5 +1,5 @@
 # ts-transformer-extend-global-interface
-A Typescript custom transformer which enables to extend globally declare interface.
+A Typescript custom transformer which enables to extend globally declared interfaces.
 Typescript allow to extend the globally declared interfaces.(likewise String, Array, etc or any other Library)
 
 ```ts
@@ -84,6 +84,7 @@ TypeError: Math.add is not a function
 ## Solution?
 This custom transformer will inform the Typescript compiler not to optimize only those import statements that extend the global interface. (as we can see below)
 ```js
+// index.js
 "use strict";
 // ...
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -99,17 +100,16 @@ Now, when we re-run the code, it will be executed without any error.
 $ node index
 sum of two number is: 60
 ```
+>️️ *** Please read the important [note](#note). *** <br/>
 
 # Requirement
 Typescript >= 2.4.1
 
 # How to use the custom transformer
-
 Unfortunately, TypeScript itself does not currently provide any easy way to use custom transformers (See https://github.com/Microsoft/TypeScript/issues/14419).
 The followings are the example usage of the custom transformer.
 
 ## Webpack (with ts-loader or awesome-typescript-loader)
-
 See [examples/webpack](examples/webpack) for detail.
 
 ```js
@@ -139,7 +139,6 @@ module.exports = {
 ```
 
 ## ttypescript
-
 See [examples/ttypescript](examples/ttypescript) for detail.
 See [ttypescript's README](https://github.com/cevek/ttypescript/blob/master/README.md) for how to use this with module bundlers such as webpack or Rollup.
 
@@ -157,7 +156,6 @@ See [ttypescript's README](https://github.com/cevek/ttypescript/blob/master/READ
 ```
 
 ## TypeScript API
-
 See [test](test/compile/compile.ts) for detail.
 You can try it with `$ npm test`.
 
@@ -184,8 +182,44 @@ if (emitSkipped) {
 }
 ```
 
-As a result, the TypeScript code shown [here](test/fileTransformation/ES5) is compiled into the following JavaScript.
+As a result, the TypeScript code shown [here](test/fileTransformation/Typescript) is compiled into the following JavaScript.
+```js
+// index.js
+"use strict";
+// ...
+Object.defineProperty(exports, "__esModule", { value: true });
+var exports_1 = require("./extension")
+var num1 = 24;
+var num2 = 36;
+console.log('sum of two number is:', Math.add(num1, num2));
+// ...
+```
 
+```js
+// extension.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.extendGlobalInterfaceSignature = void 0;
+Math.add = function (num1, num2) {
+    return num1 + num2;
+};
+exports.extendGlobalInterfaceSignature = 0;
+```
+>The more typescript code examples can be found [here](examples/Code.md).
+
+## Note 
+If in case extension file already contains export keyword, then the following list of syntax will be accepted or rejected.
+- [x] 1st scenario 
+    > [declareProperty]; <br/>
+      [declareProperty]; <br/>
+      export { [declaredProperty] }; <br/>
+- [x] 2nd scenario  
+    > export [declaration]; <br/>
+- [ ] 3rd scenario  
+    > [declareProperty]; <br/>
+      [defineProperty]; <br/>
+      export default [declaration];<br/>
+
+(All the above syntax's codes can be found [here](examples/Syntax code.md))
 # License
-
 MIT
