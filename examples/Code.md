@@ -81,7 +81,7 @@ Project
 +-- index.ts
 |
 ```
-Then, the index file, math file, and string file might of extension directory be look like
+Then index file, math file, and string file of extension directory might be look like
 ```ts
 // extension/index.ts
 export * from "./math";
@@ -90,7 +90,7 @@ export * from "./string";
 ```
 
 ```ts
-// math.ts
+// extension/math.ts
 export  {}
 
 declare global {
@@ -107,7 +107,7 @@ Math.add = function (num1, num2): number {
 ```
 
 ```ts
-// string.ts
+// extension/string.ts
 export {}
 
 declare global {
